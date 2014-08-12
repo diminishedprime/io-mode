@@ -78,11 +78,6 @@
   :type 'boolean
   :group 'io)
 
-(defcustom io-tab-width tab-width
-  "The tab width to use when indenting."
-  :type 'integer
-  :group 'io)
-
 (defcustom io-command "io"
   "The Io command used for evaluating code. Must be in your path."
   :type 'string
@@ -246,7 +241,6 @@
   (when io-cleanup-whitespace
     (delete-trailing-whitespace)))
 
-
 ;;
 ;; Indentation
 ;;
@@ -308,7 +302,7 @@
   ;; indentation
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'io-indent-line
-        io-tab-width tab-width ;; just in case...
+        tab-width 4
         indent-tabs-mode nil)  ;; tabs are evil..
 
   ;; hideshow
