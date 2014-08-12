@@ -154,7 +154,7 @@
      "then" "thisBlock" "thisMessage" "try" "type"
      "uniqueId" "updateSlot" "wait" "while" "write"
      "writeln" "yield")
-   'words))
+   'symbols))
 
 ;; Comments
 (defvar io-comments-re "\\(\\(#\\|//\\).*$\\|/\\*\\(.\\|[\r\n]\\)*?\\*/\\)")
