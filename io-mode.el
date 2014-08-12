@@ -159,11 +159,19 @@
 ;; Comments
 (defvar io-comments-re "\\(\\(#\\|//\\).*$\\|/\\*\\(.\\|[\r\n]\\)*?\\*/\\)")
 
+;; Methods
+(defvar io-method-declaration-name-re "\\(\\sw+\\)\s*:=\s*\\(method\\)")
+
+;; Variables
+(defvar io-variable-declaration-name-re "\\(\\sw+\\)\s*:=\s*\\(\\sw+\\)")
+
 ;; Create the list for font-lock. Each class of keyword is given a
 ;; particular face.
 (defvar io-font-lock-keywords
   ;; Note: order here matters!
   `((,io-special-re . font-lock-variable-name-face)
+    (,io-method-declaration-name-re (1 font-lock-function-name-face))
+    (,io-variable-declaration-name-re (1 font-lock-variable-name-face))
     (,io-operators-re . font-lock-builtin-face)
     (,io-operators-special-re . font-lock-warning-face)
     (,io-boolean-re . font-lock-constant-face)
