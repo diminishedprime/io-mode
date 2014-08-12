@@ -113,7 +113,7 @@
 ;;
 
 ;; Special? Self and call objects are :)
-(defvar io-special-re "\\<self\\|thisContext\\|call\\>")
+(defvar io-special-re (regexp-opt '("self" "thisContext" "call") 'symbols))
 
 ;; Operators (not all of them are present in the Io core,
 ;; but you can still define them, if you need it)
