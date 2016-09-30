@@ -223,30 +223,6 @@ is used to limit the scan."
 ;; REPL
 ;;
 
-(defun io-normalize-sexp (str)
-  "Normalize a given Io code string, removing all newline characters."
-  ;; Oddly enough, Io interpreter doesn't allow newlines anywhere,
-  ;; including multiline strings and method calls, we need to make
-  ;; a flat string from a code block, before it's passed to the
-  ;; interpreter. Obviously, this isn't a good solution, since
-  ;;   a := """Cool multiline
-  ;;   string!"""
-  ;; would become
-  ;;   a := """Cool multiline string!"""
-  ;; ...
-  (replace-regexp-in-string
-   ;; ... and finally strip the remaining newlines.
-   "[\r\n]+" "; " (replace-regexp-in-string
-                   ;; ... then strip multiple whitespaces ...
-                   "\s+" " "
-                   (replace-regexp-in-string
-                    ;; ... then remove all newline characters near brackets
-                    ;; and comas ...
-                    "\\([(,]\\)[\n\r\s]+\\|[\n\r\s]+\\()\\)" "\\1\\2"
-                    ;; This should really be read bottom-up, start by removing
-                    ;; all comments ...
-                    (replace-regexp-in-string io-comments-re "" str)))))
-
 (defun io-repl ()
   "Launch an Io REPL using `io-command' as an inferior mode."
   (interactive)
@@ -263,7 +239,7 @@ is used to limit the scan."
     (save-current-buffer
       (set-buffer io-repl-buffer)
       (comint-goto-process-mark)
-      (insert (io-normalize-sexp str))
+      (insert str)
       ;; Probably ARTIFICIAL value should be made an option,
       ;; like `io-repl-display-sent'.
       (comint-send-input))))
